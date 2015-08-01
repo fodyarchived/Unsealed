@@ -1,25 +1,24 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
+
+using FluentAssertions;
+
 using NUnit.Framework;
 
 [TestFixture]
-public class WeaverTests
+public class WeaverTests:BaseTaskTests
 {
-    Assembly assembly;
-
-    [TestFixtureSetUp]
-    public void Setup()
+    public WeaverTests()
+        : base(@"AssemblyToProcess\AssemblyToProcess.fsproj")
     {
-        assembly = WeaverHelper.WeaveAssembly();
+        
     }
 
-
-#if(DEBUG)
     [Test]
-    public void PeVerify()
+    public void Record_should_nolonger_be_sealed()
     {
-        Verifier.Verify(assembly.CodeBase.Remove(0, 8));
+        var type = TheAssembly.GetTypes().Single(t => t.FullName == "AssemblyToProcess.Record");
+        type.IsSealed.Should().BeFalse();
     }
-#endif
-
 }

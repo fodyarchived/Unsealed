@@ -1,10 +1,10 @@
 #light
 namespace Microsoft.FSharp
 open System.Reflection
-[<assembly:AssemblyDescription("Use this addin for F# to make setters for union types and eliminate need for CLIMutable attribute for records.")>]
-[<assembly:AssemblyCompany("Damjan Namjesnik")>]
-[<assembly:AssemblyTitle("Mutable.Fody")>]
-[<assembly:AssemblyCopyright("\169 Damjan Namjesnik")>]
-[<assembly:AssemblyProduct("Mutable.Fody")>]
-[<assembly:AssemblyVersionAttribute("1.0.0.0")>]
+[<assembly:AssemblyDescription("Use this addin to unseal sealed classes. It is of particular use in F# projects with records which are used with a framework like EF, NHibernate, or Castle.DynamicProxy.")>]
+[<assembly:AssemblyCompany("Damian Reeves")>]
+[<assembly:AssemblyTitle("Unsealed.Fody")>]
+[<assembly:AssemblyCopyright("\169 Damian Reeves")>]
+[<assembly:AssemblyProduct("Unsealed.Fody")>]
+[<assembly:AssemblyVersionAttribute("0.1.0.0")>]
 do()

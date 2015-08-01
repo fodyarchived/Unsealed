@@ -1,30 +1,60 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
-using Microsoft.Build.Utilities;
-using NUnit.Framework;
+using System.Text.RegularExpressions;
+
 
 public static class Verifier
 {
-    public static void Verify(string assemblyPath2)
+    static string exePath;
+    static bool peverifyFound;
+
+    static Verifier()
     {
 
-        var exePath = GetPathToPEVerify();        
-        var process = Process.Start(new ProcessStartInfo(exePath, "\"" + assemblyPath2 + "\"")
-                                        {
-                                            RedirectStandardOutput = true,
-                                            UseShellExecute = false,
-                                            CreateNoWindow = true
-                                        });
+        exePath = Environment.ExpandEnvironmentVariables(@"%programfiles(x86)%\Microsoft SDKs\Windows\v7.0A\Bin\NETFX 4.0 Tools\PEVerify.exe");
 
-        process.WaitForExit(10000);
-        var readToEnd = process.StandardOutput.ReadToEnd().Trim();
-        Assert.IsTrue(readToEnd.Contains(string.Format("All Classes and Methods in {0} Verified.", assemblyPath2)), readToEnd);
+        if (!File.Exists(exePath))
+        {
+            exePath = Environment.ExpandEnvironmentVariables(@"%programfiles(x86)%\Microsoft SDKs\Windows\v8.0A\Bin\NETFX 4.0 Tools\PEVerify.exe");
+        }
+        peverifyFound = File.Exists(exePath);
+        if (!peverifyFound)
+        {
+#if(!DEBUG)
+            throw new Exception("Could not fund PEVerify");
+#endif
+        }
+    }
+    public static void Verify(string beforeAssemblyPath, string afterAssemblyPath)
+    {
+        if (!peverifyFound)
+        {
+            return;
+        }
+        Debug.WriteLine(afterAssemblyPath);
+        var before = Validate(beforeAssemblyPath);
+        var after = Validate(afterAssemblyPath);
+        var message = string.Format("Failed processing {0}\r\n{1}", Path.GetFileName(afterAssemblyPath), after);
+        NUnit.Framework.Assert.AreEqual(TrimLineNumbers(before), TrimLineNumbers(after), message);
     }
 
-    private static string GetPathToPEVerify()
+    public static string Validate(string assemblyPath2)
     {
-        var peverifyPath = Path.Combine(
-            ToolLocationHelper.GetPathToDotNetFrameworkSdk(TargetDotNetFrameworkVersion.Version40), @"bin\NETFX 4.0 Tools\peverify.exe");
-        return peverifyPath;
+
+        var process = Process.Start(new ProcessStartInfo(exePath, "\"" + assemblyPath2 + "\"")
+        {
+            RedirectStandardOutput = true,
+            UseShellExecute = false,
+            CreateNoWindow = true
+        });
+
+        process.WaitForExit(10000);
+        return process.StandardOutput.ReadToEnd().Trim().Replace(assemblyPath2, "");
+    }
+
+    static string TrimLineNumbers(string foo)
+    {
+        return Regex.Replace(foo, @"0x.*]", "");
     }
 }
