@@ -6,5 +6,5 @@ open System.Reflection
 [<assembly:AssemblyTitle("Unsealed.Fody")>]
 [<assembly:AssemblyCopyright("\169 Damian Reeves")>]
 [<assembly:AssemblyProduct("Unsealed.Fody")>]
-[<assembly:AssemblyVersionAttribute("0.1.0.0")>]
+[<assembly:AssemblyVersionAttribute("0.1.1.0")>]
 do()

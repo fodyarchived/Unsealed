@@ -1,19 +1,21 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
-  <metadata>
-    <id>Mutable.Fody</id>
+  <metadata minClientVersion="2.8">
+    <id>Unsealed.Fody</id>
     <version>$version$</version>
-    <title>Mutable.Fody</title>
-    <authors>Damjan Namjesnik</authors>
-    <owners>Damjan Namjesnik</owners>
+    <developmentDependency>true</developmentDependency>
+    <title>Unsealed.Fody</title>
+    <authors>Damian Reeves</authors>
+    <owners>Damian Reeves</owners>
     <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
-    <projectUrl>http://github.com/ndamjan/Mutable.Fody</projectUrl>
+    <projectUrl>http://github.com/Fody/Unsealed.Fody</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <iconUrl>https://raw.github.com/ndamjan/Mutable.Fody/master/Icons/package_icon.png</iconUrl>
-    <description>Use this addin for F# to make setters for union types and eliminate need for CLIMutable attribute for records.</description>
-	<summary>Use this addin for F# to make setters for union types and eliminate need for CLIMutable attribute for records.</summary>
+    <iconUrl>https://raw.github.com/Fody/Unsealed.Fody/master/Icons/package_icon.png</iconUrl>
+    <description>Use this addin to unseal sealed types. The nost obvious usage of this is when working with F# records and an ORM like Entity Framework or NHibernate. Or if you want to create a dynamic proxy. 
+    All of the previously listed scenarios require you in some cases to have an object can be proxied, requiring virtual properties which aren't possible when a type is sealed.</description>
+	<summary>Use this addin to unseal sealed types. The nost obvious usage of this is when working with F# records and an ORM like Entity Framework or NHibernate. Or if you want to create a dynamic proxy.</summary>
     <language>en-AU</language>
-    <tags>ILWeaving, Fody, Cecil, F#, Mutable, Immutable</tags>
+    <tags>ILWeaving, Fody, Cecil, F#, Unsealed, DynamicProxy</tags>
     <dependencies>
       <dependency id="Fody"/>
     </dependencies>
