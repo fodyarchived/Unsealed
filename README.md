@@ -1,8 +1,9 @@
 ## This is an add-in for [Fody](https://github.com/Fody/Fody/) 
 
-![Icon](https://raw.github.com/DamianReeves/Unsealed.Fody/master/Icons/package_icon.png)
+![Icon](https://raw.github.com/Fody/Unsealed/master/Icons/package_icon.png)
 
-An addin for Fody for use with F# - it removes the need for CliUnsealedAttribute for record types and adds the "equivalent" functionality to union types (adds property setters where necessary). This is useful for deserialization of these types (e.g. when using ServiceStack.Text) and XAML binding.
+An addin for Fody to unseal sealed types. The most obvious usage of this is when working with F# records and an ORM like Entity Framework or NHibernate. Or if you want to create a dynamic proxy. 
+    All of the previously listed scenarios require you in some cases to have an object can be proxied, requiring virtual properties which aren't possible when a type is sealed.
 
 ## Nuget 
 
