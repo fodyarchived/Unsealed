@@ -1,9 +1,5 @@
-﻿using System;
-using System.Linq;
-using System.Reflection;
-
+﻿using System.Linq;
 using FluentAssertions;
-
 using NUnit.Framework;
 
 [TestFixture]
