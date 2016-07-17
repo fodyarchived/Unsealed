@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nuget", "NuGet\Nuget.csproj", "{63786CE5-D899-43DF-AD4E-C2CA3BAC3FC2}"
 EndProject
@@ -9,9 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Unsealed.Fody", "Unsealed.Fody\Unsealed.Fody.fsproj", "{5E183B01-0D56-425C-A66D-BC27081BFAA0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestAssemblies", "TestAssemblies", "{0578C39E-F8E6-498D-870F-1F8DD7463462}"
-EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "AssemblyToProcess", "TestAssemblies\AssemblyToProcess\AssemblyToProcess.fsproj", "{B03EE2D1-641B-462D-BE44-005DCE8AA79C}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "AssemblyToProcess", "AssemblyToProcess\AssemblyToProcess.fsproj", "{B03EE2D1-641B-462D-BE44-005DCE8AA79C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,8 +36,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{B03EE2D1-641B-462D-BE44-005DCE8AA79C} = {0578C39E-F8E6-498D-870F-1F8DD7463462}
 	EndGlobalSection
 EndGlobal

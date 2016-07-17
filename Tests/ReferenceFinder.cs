@@ -14,40 +14,23 @@ public class TestAssemblyResolver : IAssemblyResolver
     {
         var versionReader = new VersionReader(projectPath);
         directories = new List<string>();
-        if (versionReader.IsPhone)
+        if (string.IsNullOrEmpty(versionReader.TargetFrameworkProfile))
         {
-            directories.Add(string.Format(@"{0}\Reference Assemblies\Microsoft\Framework\WindowsPhone\{1}\", GetProgramFilesPath(), versionReader.FrameworkVersionAsString));
+            directories.Add($@"{GetProgramFilesPath()}\Reference Assemblies\Microsoft\Framework\.NETFramework\{versionReader.FrameworkVersionAsString}\");
         }
         else
         {
-            if (string.IsNullOrEmpty(versionReader.TargetFrameworkProfile))
-            {
-                if (versionReader.FrameworkVersionAsNumber == 3.5m)
-                {
-                    directories.Add(string.Format(@"{0}\Reference Assemblies\Microsoft\Framework\v3.5\", GetProgramFilesPath()));
-                    directories.Add(string.Format(@"{0}\Reference Assemblies\Microsoft\Framework\v3.0\", GetProgramFilesPath()));
-                    directories.Add(Environment.ExpandEnvironmentVariables(@"%WINDIR%\Microsoft.NET\Framework\v2.0.50727\"));
-                }
-                else
-                {
-                    directories.Add(string.Format(@"{0}\Reference Assemblies\Microsoft\Framework\.NETFramework\{1}\", GetProgramFilesPath(), versionReader.FrameworkVersionAsString));
-                }
-            }
-            else
-            {
-                directories.Add(string.Format(@"{0}\Reference Assemblies\Microsoft\Framework\.NETFramework\{1}\Profile\{2}", GetProgramFilesPath(), versionReader.FrameworkVersionAsString, versionReader.TargetFrameworkProfile));
-            }
-        } 
+            directories.Add($@"{GetProgramFilesPath()}\Reference Assemblies\Microsoft\Framework\.NETFramework\{versionReader.FrameworkVersionAsString}\Profile\{versionReader.TargetFrameworkProfile}");
+        }
         if (versionReader.IsFSharp)
         {
             //C:\Program Files (x86)\Reference Assemblies\Microsoft\FSharp\.NETFramework\v4.0\4.3.0.0\FSharp.Core.dll
-            var path = string.Format(@"{0}\Reference Assemblies\Microsoft\FSharp\.NETFramework\{1}\{2}\", GetProgramFilesPath(), versionReader.FrameworkVersionAsString, versionReader.TargetFSharpCoreVersion);
+            var path = $@"{GetProgramFilesPath()}\Reference Assemblies\Microsoft\FSharp\.NETFramework\{versionReader.FrameworkVersionAsString}\{versionReader.TargetFSharpCoreVersion}\";
             directories.Add(path);
         }
         directories.Add(Path.GetDirectoryName(targetPath));
 
         GetGacPaths();
-
     }
 
     void GetGacPaths()
@@ -184,6 +167,6 @@ public class TestAssemblyResolver : IAssemblyResolver
         return Path.Combine(Path.Combine(Path.Combine(gac, reference.Name), builder.ToString()), reference.Name + ".dll");
     }
 
-    
+
 
 }
