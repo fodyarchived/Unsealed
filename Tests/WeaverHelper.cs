@@ -20,25 +20,26 @@ public class WeaverHelper
 
         GetAssemblyPath();
 
-
         AfterAssemblyPath = BeforeAssemblyPath.Replace(".dll", "2.dll");
         File.Copy(BeforeAssemblyPath, AfterAssemblyPath, true);
 
 
         var assemblyResolver = new TestAssemblyResolver(BeforeAssemblyPath, this.projectPath);
-        var moduleDefinition = ModuleDefinition.ReadModule(AfterAssemblyPath, new ReaderParameters
+        using (var moduleDefinition = ModuleDefinition.ReadModule(BeforeAssemblyPath, new ReaderParameters
         {
             AssemblyResolver = assemblyResolver
-        });
-        var weavingTask = new ModuleWeaver
+        }))
         {
-            ModuleDefinition = moduleDefinition,
-            AssemblyResolver = assemblyResolver
-        };
+            var weavingTask = new ModuleWeaver
+            {
+                ModuleDefinition = moduleDefinition,
+                AssemblyResolver = assemblyResolver
+            };
 
-        weavingTask.Execute();
+            weavingTask.Execute();
 
-        moduleDefinition.Write(AfterAssemblyPath);
+            moduleDefinition.Write(AfterAssemblyPath);
+        }
 
         Assembly = Assembly.LoadFile(AfterAssemblyPath);
     }
