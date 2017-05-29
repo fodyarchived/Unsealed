@@ -1,5 +1,8 @@
 ## This is an add-in for [Fody](https://github.com/Fody/Fody/) 
 
+
+[![NuGet Status](https://img.shields.io/gitter/room/fody/fody.svg?style=flat)](https://gitter.im/Fody/Fody)
+
 ![Icon](https://raw.github.com/Fody/Unsealed/master/Icons/package_icon.png)
 
 An addin for Fody to unseal sealed types. The most obvious usage of this is when working with F# records and an ORM like Entity Framework or NHibernate. Or if you want to create a dynamic proxy. 
